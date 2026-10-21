@@ -64,12 +64,12 @@ export function HeroVisual() {
           <LazyStage />
         </div>
       ) : (
-        <div className="absolute inset-x-0 bottom-[58%] top-[11%] px-2 md:inset-y-[18%] md:left-[34%]">
-          <SvgTruss />
+        <div className="absolute inset-x-0 bottom-[67%] top-[9%] flex flex-col px-2 md:inset-y-[18%] md:left-[34%] md:block">
+          <div className="min-h-0 flex-1 md:h-full"><SvgTruss /></div>
           {gl && !reduce && !desktop && (
             <button
               onClick={() => setAsked(true)}
-              className="mono absolute -bottom-2 right-4 flex min-h-11 items-center gap-2 border border-signal/70 bg-void/70 px-4 text-[12px] uppercase tracking-[0.14em] text-signal backdrop-blur"
+              className="mono self-end flex min-h-11 md:absolute md:bottom-0 md:right-4 items-center gap-2 border border-signal/70 bg-void/70 px-4 text-[12px] uppercase tracking-[0.14em] text-signal backdrop-blur"
             >
               <Rotate3d className="size-4" aria-hidden /> Покрутить в 3D
             </button>

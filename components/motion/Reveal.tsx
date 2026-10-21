@@ -2,6 +2,7 @@
 
 import { motion } from 'motion/react';
 import { useReducedMotion } from '@/lib/hooks';
+import { useReady } from '@/lib/ready';
 
 export const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -39,13 +40,17 @@ export function SplitLines({
   className,
   delay = 0,
   accent,
+  gate = false,
 }: {
   lines: string[];
   className?: string;
   delay?: number;
   accent?: number;
+  gate?: boolean;
 }) {
   const reduce = useReducedMotion();
+  const ready = useReady();
+  const go = !gate || ready;
   return (
     <span className={className} aria-label={lines.join(' ')}>
       {lines.map((l, i) => (
@@ -53,7 +58,7 @@ export function SplitLines({
           <motion.span
             className={`block ${accent === i ? 'text-signal' : ''}`}
             initial={reduce ? false : { y: '110%' }}
-            animate={{ y: 0 }}
+            animate={go ? { y: 0 } : { y: '110%' }}
             transition={{ duration: 1, delay: delay + i * 0.09, ease: EASE }}
           >
             {l}

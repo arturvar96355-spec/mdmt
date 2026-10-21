@@ -14,11 +14,13 @@ import { Footer } from '@/components/sections/Footer';
 import { MobileBar } from '@/components/sections/MobileBar';
 import { SectionHead } from '@/components/ui/SectionHead';
 import { Configurator } from '@/components/widgets/Configurator';
+import { Preloader } from '@/components/ui/Preloader';
 import { Cursor } from '@/components/ui/Cursor';
 
 export default function Page() {
   return (
     <>
+      <Preloader />
       <Header />
       <main>
         <Hero />

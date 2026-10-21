@@ -18,7 +18,7 @@ export function Hero() {
           <span className="inline-block h-px w-10 bg-signal" /> Москва · Гольяново · с {site.since}
         </p>
         <h1 className="max-w-[12ch] text-[clamp(2.7rem,6.6vw,6.2rem)] font-bold leading-[0.95] tracking-[-0.035em] text-white md:max-w-[11ch]">
-          <SplitLines lines={['Конструкции,', 'на которых', 'стоят арены.']} accent={2} delay={0.15} />
+          <SplitLines lines={['Конструкции,', 'на которых', 'стоят арены.']} accent={2} delay={0.1} gate />
         </h1>
         <p className="mt-7 max-w-[34rem] text-[17px] leading-relaxed text-alu md:mt-9 md:text-[19px]">{typograph(site.lead)}</p>
         <div className="pointer-events-auto mt-9 flex flex-wrap gap-3 md:mt-11">
