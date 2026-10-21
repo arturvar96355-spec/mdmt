@@ -15,7 +15,7 @@ export function Preloader() {
     let seen = false;
     try { seen = sessionStorage.getItem(KEY) === '1'; } catch {}
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (seen || reduce) { setShow(false); setReady(); return; }
+    if (seen || reduce || document.documentElement.dataset.intro !== '1') { setShow(false); setReady(); return; }
     try { sessionStorage.setItem(KEY, '1'); } catch {}
     const t0 = performance.now();
     let raf = 0;
@@ -35,7 +35,7 @@ export function Preloader() {
   return (
     <motion.div
       aria-hidden
-      className="fixed inset-0 z-[200] grid place-items-center bg-void"
+      className="fixed inset-0 z-[200] hidden place-items-center bg-void [html[data-intro='1']_&]:grid"
       animate={done ? { y: '-100%' } : { y: 0 }}
       transition={{ duration: 0.7, delay: 0.05, ease: [0.76, 0, 0.24, 1] }}
     >

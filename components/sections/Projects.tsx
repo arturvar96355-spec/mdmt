@@ -7,7 +7,7 @@ export function Projects() {
   const [main, ...rest] = projects;
   return (
     <section id="projects" className="container-x scroll-mt-20 py-24 md:py-36">
-      <SectionHead n="08" kicker="Проекты" title="Арены, выставки, шоу." lead="Крупные проекты — отдельным разделом, а не строкой в общем списке." />
+      <SectionHead n="07" kicker="Проекты" title="Арены, выставки, шоу." lead="Крупные проекты — отдельным разделом, а не строкой в общем списке." />
       <Reveal>
         <article className="group grid gap-px border border-grid bg-grid lg:grid-cols-12">
           <PlaceholderFilm i={5} className="min-h-[300px] lg:col-span-8 lg:min-h-[460px]" />

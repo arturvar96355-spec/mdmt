@@ -10,6 +10,8 @@ export function Hero() {
     <section id="top" className="relative isolate flex min-h-[100svh] flex-col overflow-hidden">
       <div className="bg-blueprint drift absolute inset-0 -z-20 opacity-60" aria-hidden />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(60%_70%_at_72%_46%,transparent,rgb(8_9_11/0.55)_70%,#08090b_100%)]" aria-hidden />
+      <div className="beam beam-a" aria-hidden />
+      <div className="beam beam-b" aria-hidden />
       <HeroVisual />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-40 bg-gradient-to-t from-void to-transparent" aria-hidden />
 

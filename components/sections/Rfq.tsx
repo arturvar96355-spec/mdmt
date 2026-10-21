@@ -107,7 +107,7 @@ export function RfqSection() {
                 </fieldset>
 
                 <div className="grid gap-3 sm:grid-cols-3">
-                  <label className="block"><span className="label mb-2 block">Нагрузка, кг <span className="normal-case tracking-normal">(если известна)</span></span><input name="load" inputMode="numeric" className={field} /></label>
+                  <label className="block"><span className="label mb-2 block">Нагрузка, кг</span><input name="load" inputMode="numeric" placeholder="если известна" className={field} /></label>
                   <label className="block"><span className="label mb-2 block">Сроки</span><input name="date" type="date" className={field} /></label>
                   <label className="block"><span className="label mb-2 block">Город / площадка</span><input name="place" className={field} /></label>
                 </div>

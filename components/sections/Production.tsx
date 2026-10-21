@@ -47,6 +47,10 @@ export function Production() {
                 <div className="relative mb-4 aspect-[16/9] overflow-hidden sm:aspect-[3/4] border border-grid bg-void transition-transform duration-500 ease-out group-hover:-translate-y-2 group-hover:rotate-[-1.2deg] group-hover:border-signal/70">
                   <div className="bg-blueprint-fine absolute inset-0 opacity-50" aria-hidden />
                   <FileCheck2 className="absolute left-4 top-4 size-6 text-mute" strokeWidth={1.2} aria-hidden />
+                  <div className="absolute inset-x-6 top-16 space-y-2.5" aria-hidden>
+                    {[88, 64, 92, 70, 80, 40].map((w, k) => <div key={k} className="h-[3px] bg-grid" style={{ width: `${w}%` }} />)}
+                  </div>
+                  <div className="absolute bottom-14 right-6 size-14 rounded-full border border-signal/40" aria-hidden />
                   <span className="ph absolute inset-x-4 bottom-4 !text-[10px]">[скан сертификата — от клиента]</span>
                 </div>
                 <p className="text-[13px] leading-snug text-alu">{c}</p>

@@ -1,0 +1,12 @@
+import { chromium } from 'playwright';
+const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader'] });
+const p = await b.newPage({ viewport: { width: 412, height: 823 } });
+const c = await p.context().newCDPSession(p);
+await c.send('Emulation.setCPUThrottlingRate', { rate: 4 });
+await c.send('Profiler.enable'); await c.send('Profiler.start');
+await p.goto(process.argv[2], { waitUntil: 'load' }); await p.waitForTimeout(4000);
+const { profile } = await c.send('Profiler.stop');
+const self = new Map(); const dt = profile.timeDeltas; const idIdx = new Map(profile.nodes.map((n) => [n.id, n]));
+profile.samples.forEach((id, i) => { const n = idIdx.get(id); const k = `${n.callFrame.functionName || '(anon)'} ${n.callFrame.url.split('/').pop()}:${n.callFrame.lineNumber}:${n.callFrame.columnNumber}`; self.set(k, (self.get(k) || 0) + (dt[i] || 0)); });
+console.log([...self.entries()].sort((a, b) => b[1] - a[1]).slice(0, 18).map(([k, v]) => `${(v / 1000).toFixed(0)}ms ${k}`).join('\n'));
+await b.close();

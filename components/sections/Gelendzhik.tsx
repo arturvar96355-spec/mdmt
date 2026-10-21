@@ -115,7 +115,7 @@ export function GelendzhikScene() {
 
   const head = (
     <div className="mb-5 md:mb-6">
-      <p className="mono mb-4 flex items-center gap-3 text-[12px] uppercase tracking-[0.16em] text-mute"><span className="text-signal">09</span><span className="h-px w-8 bg-grid" />Кейс</p>
+      <p className="mono mb-4 flex items-center gap-3 text-[12px] uppercase tracking-[0.16em] text-mute"><span className="text-signal">08</span><span className="h-px w-8 bg-grid" />Кейс</p>
       <h2 className="text-[clamp(1.8rem,3.4vw,3rem)] font-bold leading-[1.02] tracking-[-0.03em] text-white">Геленджик Арена: люк, через который опускается занавес.</h2>
     </div>
   );

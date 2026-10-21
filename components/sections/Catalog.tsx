@@ -105,6 +105,9 @@ export function Catalog() {
               <div>
                 <p className="mono mb-1 text-[11px] uppercase tracking-[0.12em] text-mute">{s.task.map((t) => taskLabels[t]).join(' · ')}</p>
                 <p className="mb-4 text-[13px]"><span className="ph">{DATA_PH}</span></p>
+                <a href={`/catalog/${s.slug}/`} className="mono mb-2 flex min-h-11 w-full items-center justify-between border border-transparent px-4 text-[12px] uppercase tracking-[0.14em] text-alu transition-colors hover:text-white">
+                  Страница серии <span aria-hidden>→</span>
+                </a>
                 <button
                   onClick={() => openConfigurator({ series: s.code, section: sec && s.sections.includes(sec) ? sec : s.sections[0] })}
                   className="mono flex min-h-11 w-full items-center justify-between border border-grid px-4 text-[12px] uppercase tracking-[0.14em] text-white transition-colors group-hover:border-signal group-hover:text-signal"

@@ -32,7 +32,7 @@ export const nav = [
   { label: 'Проекты', href: '/#projects' },
   { label: 'Производство', href: '/#production' },
   { label: '3D-модели', href: '/#production' },
-  { label: 'Контакты', href: '/#contacts' },
+  { label: 'Контакты', href: '/contacts/' },
 ] as const;
 
 export const ticker = [

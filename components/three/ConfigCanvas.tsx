@@ -9,11 +9,14 @@ import { series } from '@/content/series';
 import type { ConfigState } from '@/lib/config-store';
 import { TrussModel } from './TrussModel';
 
-const VIEWS: Record<ConfigState['view'], THREE.Vector3> = {
-  iso: new THREE.Vector3(3.4, 2.0, 4.6),
-  front: new THREE.Vector3(0.001, 0.3, 7),
-  top: new THREE.Vector3(0.001, 7.4, 0.8),
+const DIRS: Record<ConfigState['view'], THREE.Vector3> = {
+  iso: new THREE.Vector3(0.36, 0.3, 0.88).normalize(),
+  front: new THREE.Vector3(0.001, 0.05, 1).normalize(),
+  top: new THREE.Vector3(0.001, 1, 0.09).normalize(),
 };
+const viewPos = (v: ConfigState['view'], length: number, size: number) =>
+  DIRS[v].clone().multiplyScalar(Math.max(6.2, length * 1.8 + size * 3.4));
+const VIEWS = { iso: viewPos('iso', 3, 0.5) };
 
 function Inner({ cfg, touch }: { cfg: ConfigState; touch: boolean }) {
   const s = series.find((x) => x.code === cfg.series)!;
@@ -21,7 +24,7 @@ function Inner({ cfg, touch }: { cfg: ConfigState; touch: boolean }) {
   const progress = useRef(0);
   const { invalidate, camera } = useThree();
   const controls = useRef<any>(null);
-  const target = useRef(VIEWS[cfg.view].clone());
+  const target = useRef(viewPos(cfg.view, cfg.length, 0.5 * s.scale));
 
   useEffect(() => {
     progress.current = 0.2;
@@ -29,9 +32,9 @@ function Inner({ cfg, touch }: { cfg: ConfigState; touch: boolean }) {
   }, [geometry, invalidate]);
 
   useEffect(() => {
-    target.current.copy(VIEWS[cfg.view]);
+    target.current.copy(viewPos(cfg.view, cfg.length, 0.5 * s.scale));
     invalidate();
-  }, [cfg.view, invalidate]);
+  }, [cfg.view, cfg.length, s.scale, invalidate]);
 
   useFrame((_, dt) => {
     let more = false;
@@ -60,8 +63,8 @@ function Inner({ cfg, touch }: { cfg: ConfigState; touch: boolean }) {
         enablePan={false}
         enableZoom={!touch}
         enableDamping
-        minDistance={3}
-        maxDistance={14}
+        minDistance={2.5}
+        maxDistance={22}
         minPolarAngle={0.01}
         maxPolarAngle={Math.PI * 0.62}
         onChange={() => invalidate()}

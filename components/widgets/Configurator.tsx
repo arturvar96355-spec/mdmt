@@ -64,7 +64,16 @@ export function Configurator() {
   const [near, setNear] = useState(false);
   const box = useRef<HTMLDivElement>(null);
 
-  useEffect(() => setGl(hasWebGL()), []);
+  useEffect(() => { if (near) setGl(hasWebGL()); }, [near]);
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search);
+    const sr = p.get('cfg');
+    const [cs, ck] = (sr ?? '').split('.');
+    if (cs && series.some((x) => x.code === cs.toUpperCase())) {
+      const ser = series.find((x) => x.code === cs.toUpperCase())!;
+      configStore.set({ series: ser.code, section: (ser.sections as string[]).includes(ck) ? (ck as never) : ser.sections[0] });
+    }
+  }, []);
   useEffect(() => {
     if (!box.current) return;
     const io = new IntersectionObserver(([e]) => setNear(e.isIntersecting), { rootMargin: '300px' });

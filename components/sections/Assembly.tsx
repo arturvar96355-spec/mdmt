@@ -76,7 +76,7 @@ export function Assembly() {
   const bar = useRef<HTMLDivElement>(null);
   const lab = useRef<Array<HTMLDivElement | null>>([]);
 
-  useEffect(() => setGl(hasWebGL()), []);
+  useEffect(() => { if (desktop) setGl(hasWebGL()); }, [desktop]);
 
   const full = desktop && gl && !reduce;
 

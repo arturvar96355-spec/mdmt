@@ -159,3 +159,39 @@ h1, h2, h3, h4 { color: var(--color-white); font-weight: 700; letter-spacing: -0
   transition: transform 0.4s var(--ease-out-expo);
 }
 .link-u:hover::after { transform: scaleX(1); }
+
+/* лучи прожекторов в hero — только transform/opacity */
+.beam {
+  position: absolute;
+  top: -10%;
+  width: 46vw;
+  height: 120%;
+  pointer-events: none;
+  z-index: -5;
+  mix-blend-mode: screen;
+  filter: blur(18px);
+  clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%);
+  transform-origin: 50% 0;
+  opacity: 0.5;
+}
+.beam-a { left: 8%; background: linear-gradient(to bottom, rgb(190 215 255 / 0.20), transparent 75%); animation: sweep-a 11s ease-in-out infinite alternate; }
+.beam-b { right: -6%; background: linear-gradient(to bottom, rgb(255 140 70 / 0.18), transparent 75%); animation: sweep-b 13s ease-in-out infinite alternate; }
+@keyframes sweep-a { from { transform: rotate(-14deg); } to { transform: rotate(10deg); } }
+@keyframes sweep-b { from { transform: rotate(12deg); } to { transform: rotate(-9deg); } }
+@media (max-width: 767px) { .beam { width: 90vw; opacity: 0.35; } }
+@media (prefers-reduced-motion: reduce) { .beam { animation: none; } }
+
+/* появление блоков */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, var(--ry, 32px), 0);
+  filter: blur(6px);
+  transition: opacity 0.9s var(--ease-out-expo) var(--rd, 0s), transform 0.9s var(--ease-out-expo) var(--rd, 0s), filter 0.9s var(--ease-out-expo) var(--rd, 0s);
+  will-change: opacity, transform;
+}
+.reveal.in { opacity: 1; transform: none; filter: none; will-change: auto; }
+
+/* прорисовка линий SVG без JS-анимации */
+@keyframes draw { from { stroke-dashoffset: 1; opacity: 0; } to { stroke-dashoffset: 0; opacity: 1; } }
+.draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 0.7s ease-out forwards; }
+@media (prefers-reduced-motion: reduce) { .draw { animation: none; stroke-dashoffset: 0; } .reveal { opacity: 1; transform: none; filter: none; } }

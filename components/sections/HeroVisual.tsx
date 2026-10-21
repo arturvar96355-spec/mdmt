@@ -1,13 +1,13 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { motion } from 'motion/react';
 import { Rotate3d } from 'lucide-react';
 import { LazyStage } from '@/components/three/LazyStage';
 import { buildTruss } from '@/lib/truss/build';
 import { trussToSvg } from '@/lib/truss/iso';
 import { series } from '@/content/series';
 import { hasWebGL, useMedia, useReducedMotion } from '@/lib/hooks';
+import { useReady } from '@/lib/ready';
 
 function SvgTruss() {
   const lines = (() => {
@@ -24,15 +24,15 @@ function SvgTruss() {
         </linearGradient>
       </defs>
       {lines.map((l, i) => (
-        <motion.line
+        <line
           key={i}
+          className="draw"
+          pathLength={1}
           x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2}
           stroke={l.chord ? 'url(#alu)' : '#9aa1ad'}
           strokeWidth={l.w}
           strokeLinecap="round"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.3 + l.t * 2.2, ease: 'easeOut' }}
+          style={{ animationDelay: `${0.2 + l.t * 1.6}s` }}
         />
       ))}
     </svg>
@@ -47,7 +47,9 @@ export function HeroVisual() {
   const [visible, setVisible] = useState(true);
   const box = useRef<HTMLDivElement>(null);
 
-  useEffect(() => setGl(hasWebGL()), []);
+  useEffect(() => {
+    if (desktop) setGl(hasWebGL());
+  }, [desktop]);
   useEffect(() => {
     if (!box.current) return;
     const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { rootMargin: '200px' });
@@ -55,20 +57,21 @@ export function HeroVisual() {
     return () => io.disconnect();
   }, []);
 
-  const run3d = gl && !reduce && (desktop || asked);
+  const ready = useReady();
+  const run3d = gl && !reduce && ready && (desktop || asked);
 
   return (
     <div ref={box} className="absolute inset-0">
       {run3d && visible ? (
         <div className="absolute inset-0 animate-[fadein_1.2s_ease_both]">
-          <LazyStage />
+          <LazyStage bloom={(navigator.hardwareConcurrency || 4) > 4} />
         </div>
       ) : (
         <div className="absolute inset-x-0 bottom-[67%] top-[9%] flex flex-col px-2 md:inset-y-[18%] md:left-[34%] md:block">
           <div className="min-h-0 flex-1 md:h-full"><SvgTruss /></div>
-          {gl && !reduce && !desktop && (
+          {!reduce && !desktop && (
             <button
-              onClick={() => setAsked(true)}
+              onClick={() => { if (hasWebGL()) { setGl(true); setAsked(true); } }}
               className="mono self-end flex min-h-11 md:absolute md:bottom-0 md:right-4 items-center gap-2 border border-signal/70 bg-void/70 px-4 text-[12px] uppercase tracking-[0.14em] text-signal backdrop-blur"
             >
               <Rotate3d className="size-4" aria-hidden /> Покрутить в 3D

@@ -32,7 +32,7 @@ function Plan({ width, depth, i }: { width: number; depth: number; i: number }) 
         <Typed svg text={`${fmt(width)} м`} delay={900} />
       </text>
       <text x={X0 - 30} y={Y0 - d / 2} textAnchor="middle" fill="#f4f5f7" fontSize="13" fontFamily="var(--font-jb)" transform={`rotate(-90 ${X0 - 30} ${Y0 - d / 2})`}>
-        <Typed svg text={`${fmt(depth)} м`} delay={1100} />
+        <Typed svg auto text={`${fmt(depth)} м`} delay={2200} />
       </text>
     </svg>
   );

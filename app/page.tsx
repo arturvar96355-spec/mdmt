@@ -15,6 +15,7 @@ import { MobileBar } from '@/components/sections/MobileBar';
 import { SectionHead } from '@/components/ui/SectionHead';
 import { Configurator } from '@/components/widgets/Configurator';
 import { Preloader } from '@/components/ui/Preloader';
+import { ScrollRail } from '@/components/ui/ScrollRail';
 import { Cursor } from '@/components/ui/Cursor';
 
 export default function Page() {
@@ -42,6 +43,7 @@ export default function Page() {
       <Footer />
       <MobileBar />
       <Cursor />
+      <ScrollRail />
     </>
   );
 }
