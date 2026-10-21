@@ -71,7 +71,7 @@ function Rig({ children, offsetX }: { children: React.ReactNode; offsetX: number
 function Driver({ auto }: { auto: boolean }) {
   useFrame((_, dt) => {
     if (auto && sceneState.assemble < 1) {
-      sceneState.assemble = Math.min(1, sceneState.assemble + dt / 3.6);
+      sceneState.assemble = Math.min(1, sceneState.assemble + dt / 4.4);
     }
   });
   return null;

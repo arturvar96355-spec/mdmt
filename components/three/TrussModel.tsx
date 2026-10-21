@@ -25,6 +25,8 @@ interface Props {
   /** время (в единицах прогресса) вспышки сварки */
   flash?: boolean;
   explodeScale?: number;
+  /** функция-драйвер сборки (конфигуратор): отключает sceneState */
+  driver?: () => number;
 }
 
 function setSeg(mesh: THREE.InstancedMesh, i: number, s: Seg, local: number, off: THREE.Vector3) {
@@ -46,7 +48,7 @@ function setSeg(mesh: THREE.InstancedMesh, i: number, s: Seg, local: number, off
   mesh.setMatrixAt(i, tmpM);
 }
 
-export function TrussModel({ geometry: g, assemble, flash = true, explodeScale = 1 }: Props) {
+export function TrussModel({ geometry: g, assemble, flash = true, explodeScale = 1, driver }: Props) {
   const chordsRef = useRef<THREE.InstancedMesh>(null!);
   const bracesRef = useRef<THREE.InstancedMesh>(null!);
   const weldsRef = useRef<THREE.InstancedMesh>(null!);
@@ -62,9 +64,9 @@ export function TrussModel({ geometry: g, assemble, flash = true, explodeScale =
   }, [g]);
 
   useFrame(() => {
-    const prog = assemble ?? sceneState.assemble;
-    const exp = sceneState.explode;
-    const key = prog * 1000 + exp * 100003;
+    const prog = (driver ? driver() : (assemble ?? sceneState.assemble)) * 1.35;
+    const exp = driver ? 0 : sceneState.explode;
+    const key = prog * 1000 + exp * 100003 + 1;
     if (key === last.current) return;
     last.current = key;
 

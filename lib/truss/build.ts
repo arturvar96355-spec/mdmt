@@ -13,7 +13,7 @@ export interface TrussGeometry {
   radius: number;
 }
 
-const PROFILES: Record<SectionKey, Array<[number, number]>> = {
+export const PROFILES: Record<SectionKey, Array<[number, number]>> = {
   flat: [[0, -0.5], [0, 0.5]],
   triangle: [[-0.5, -0.43], [0.5, -0.43], [0, 0.43]],
   square: [[-0.5, -0.5], [0.5, -0.5], [0.5, 0.5], [-0.5, 0.5]],
