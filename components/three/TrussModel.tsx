@@ -74,9 +74,11 @@ export function TrussModel({ geometry: g, assemble, flash = true, explodeScale =
     const spread = g.size * 2.2 * explodeScale;
     const offFor = (mid: THREE.Vector3, kind: number) => {
       if (exp <= 0) return tmpO.set(0, 0, 0);
-      const dir = tmpO.set(mid.x * 0.7, mid.y, mid.z).normalize();
-      const f = exp * spread * (kind === 1 ? 1.0 : 0.45);
-      return tmpO.set(dir.x * f + mid.x * exp * 0.35, dir.y * f, dir.z * f);
+      // радиально от оси фермы: пояса уходят дальше раскосов, вдоль длины — лёгкое растяжение
+      const ry = mid.y, rz = mid.z;
+      const l = Math.hypot(ry, rz) || 1;
+      const f = exp * spread * (kind === 0 ? 0.62 : 0.3);
+      return tmpO.set(mid.x * exp * 0.22, (ry / l) * f, (rz / l) * f);
     };
 
     const m = new THREE.Vector3();

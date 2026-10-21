@@ -13,7 +13,7 @@ export function Hero() {
       <HeroVisual />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-40 bg-gradient-to-t from-void to-transparent" aria-hidden />
 
-      <div className="container-x pointer-events-none relative z-10 flex flex-1 flex-col justify-center pb-40 pt-28 md:pb-28 md:pt-32">
+      <div className="container-x pointer-events-none relative z-10 flex flex-1 flex-col justify-end pb-36 pt-28 md:justify-center md:pb-28 md:pt-32">
         <p className="label mb-6 flex items-center gap-3 md:mb-8">
           <span className="inline-block h-px w-10 bg-signal" /> Москва · Гольяново · с {site.since}
         </p>

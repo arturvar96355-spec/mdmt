@@ -1,5 +1,7 @@
 import { Header } from '@/components/sections/Header';
 import { Hero } from '@/components/sections/Hero';
+import { Assembly } from '@/components/sections/Assembly';
+import { GelendzhikScene } from '@/components/sections/Gelendzhik';
 import { Facts } from '@/components/sections/Facts';
 import { Catalog } from '@/components/sections/Catalog';
 import { Stages } from '@/components/sections/Stages';
@@ -21,6 +23,7 @@ export default function Page() {
       <main>
         <Hero />
         <Facts />
+        <Assembly />
         <section id="configurator" className="container-x scroll-mt-20 py-24 md:py-36">
           <SectionHead n="04" kicker="Конфигуратор" title="Соберите ферму под задачу." lead="Серия, сечение, длина — ферма перестраивается на глазах. Параметры можно передать в запрос расчёта одной кнопкой." />
           <Configurator />
@@ -28,6 +31,7 @@ export default function Page() {
         <Catalog />
         <Stages />
         <Projects />
+        <GelendzhikScene />
         <Production />
         <AlsoMake />
         <Reviews />

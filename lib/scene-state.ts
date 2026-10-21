@@ -11,4 +11,6 @@ export const sceneState = {
   /** положение курсора -1..1 */
   px: 0,
   py: 0,
+  /** экранные координаты якорей подписей, px относительно холста */
+  labels: [] as Array<{ x: number; y: number }>,
 };

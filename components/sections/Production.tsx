@@ -44,7 +44,7 @@ export function Production() {
           <div className="grid gap-px bg-grid sm:grid-cols-3 lg:col-span-8">
             {certs.map((c, i) => (
               <Reveal key={i} delay={i * 0.07} className="group bg-carbon p-5">
-                <div className="relative mb-4 aspect-[3/4] overflow-hidden border border-grid bg-void transition-transform duration-500 ease-out group-hover:-translate-y-2 group-hover:rotate-[-1.2deg] group-hover:border-signal/70">
+                <div className="relative mb-4 aspect-[16/9] overflow-hidden sm:aspect-[3/4] border border-grid bg-void transition-transform duration-500 ease-out group-hover:-translate-y-2 group-hover:rotate-[-1.2deg] group-hover:border-signal/70">
                   <div className="bg-blueprint-fine absolute inset-0 opacity-50" aria-hidden />
                   <FileCheck2 className="absolute left-4 top-4 size-6 text-mute" strokeWidth={1.2} aria-hidden />
                   <span className="ph absolute inset-x-4 bottom-4 !text-[10px]">[скан сертификата — от клиента]</span>
