@@ -100,9 +100,9 @@ export function RfqSection() {
                 <fieldset>
                   <legend className="label mb-3">Размеры, м (ширина × глубина × высота)</legend>
                   <div className="grid grid-cols-3 gap-3">
-                    <input name="w" inputMode="decimal" placeholder="Ширина" aria-label="Ширина, м" className={field} />
-                    <input name="d" inputMode="decimal" placeholder="Глубина" aria-label="Глубина, м" className={field} />
-                    <input name="h" inputMode="decimal" placeholder="Высота" aria-label="Высота, м" className={field} />
+                    <input name="w" inputMode="decimal" placeholder="Ш" aria-label="Ширина, м" className={field} />
+                    <input name="d" inputMode="decimal" placeholder="Г" aria-label="Глубина, м" className={field} />
+                    <input name="h" inputMode="decimal" placeholder="В" aria-label="Высота, м" className={field} />
                   </div>
                 </fieldset>
 
@@ -133,7 +133,7 @@ export function RfqSection() {
 
                 <div>
                   <Button type="submit" className="w-full sm:w-auto">Отправить запрос</Button>
-                  <p className="mt-4 text-[12px] leading-snug text-mute">Нажимая кнопку, Вы соглашаетесь на обработку персональных данных. <a href="/privacy/" className="underline underline-offset-2 hover:text-white">Политика</a> — <span className="ph">[политика — от клиента]</span></p>
+                  <p className="mt-4 text-[12px] leading-snug text-mute">Нажимая кнопку, Вы соглашаетесь на обработку персональных данных. <a href="/privacy/" className="hit underline underline-offset-2 hover:text-white">Политика</a> — <span className="ph">[политика — от клиента]</span></p>
                 </div>
               </motion.form>
             )}

@@ -69,7 +69,7 @@ export default async function SeriesPage({ params }: { params: Promise<{ series:
                       <h2 className="text-[18px] font-semibold text-white">{sec.label}</h2>
                       <p className="mono text-[11px] uppercase tracking-[0.12em] text-mute">{s.code} / {sec.code}</p>
                     </div>
-                    <a href={`/?cfg=${s.code}.${sec.key}#configurator`} className="mono ml-auto text-[11px] uppercase tracking-[0.14em] text-signal underline decoration-signal/40 underline-offset-4 hover:decoration-signal">В 3D →</a>
+                    <a href={`/?cfg=${s.code}.${sec.key}#configurator`} className="hit mono ml-auto text-[11px] uppercase tracking-[0.14em] text-signal underline decoration-signal/40 underline-offset-4 hover:decoration-signal">В 3D →</a>
                   </div>
                   <p className="mt-3 text-[14px] text-alu">{sec.note}</p>
                 </li>

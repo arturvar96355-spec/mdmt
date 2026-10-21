@@ -38,7 +38,7 @@ export function Production() {
             <div>
               <h3 className="mb-3 text-[24px] font-semibold text-white">Запись в ГИСП</h3>
               <p className="mb-6 text-[15px] leading-relaxed text-alu">Государственная информационная система промышленности подтверждает статус российского производителя.</p>
-              <a href={site.gispUrl} target="_blank" rel="noopener noreferrer" className="mono text-[12px] uppercase tracking-[0.14em] text-signal underline decoration-signal/40 underline-offset-4 hover:decoration-signal">Открыть запись →</a>
+              <a href={site.gispUrl} target="_blank" rel="noopener noreferrer" className="hit mono text-[12px] uppercase tracking-[0.14em] text-signal underline decoration-signal/40 underline-offset-4 hover:decoration-signal">Открыть запись →</a>
             </div>
           </Reveal>
           <div className="grid gap-px bg-grid sm:grid-cols-3 lg:col-span-8">

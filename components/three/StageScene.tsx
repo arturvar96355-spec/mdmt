@@ -32,7 +32,7 @@ function Studio() {
 
 const GROUND = -1.4;
 
-function Rig({ children, offsetX: baseX, mode }: { children: React.ReactNode; offsetX: number; mode: Mode }) {
+function Rig({ children, offsetX: baseX, mode, side }: { children: React.ReactNode; offsetX: number; mode: Mode; side: boolean }) {
   const g = useRef<THREE.Group>(null!);
   const o = useRef<THREE.Group>(null!);
   const spot1 = useRef<THREE.SpotLight>(null!);
@@ -43,6 +43,7 @@ function Rig({ children, offsetX: baseX, mode }: { children: React.ReactNode; of
   const tgt = useMemo(() => new THREE.Object3D(), []);
 
   useFrame((state, dt) => {
+    const size = state.size;
     const t = state.clock.elapsedTime;
     const pt = mode === 'assembly' ? sceneState.portal : 0;
     const k = Math.min(1, dt * 3);
@@ -51,14 +52,18 @@ function Rig({ children, offsetX: baseX, mode }: { children: React.ReactNode; of
       g.current.rotation.y = mode === 'hero' ? -0.5 + Math.sin(t * 0.22) * 0.22 : -0.5 + pt * 0.5 + sceneState.explode * 0.12;
     }
     const offsetX = baseX * (1 - 0.45 * pt);
-    if (o.current) o.current.position.set(offsetX, -0.7 * (1 - pt), 0);
+    if (o.current) {
+      const land = size.width > size.height;
+      o.current.position.set(offsetX, (side ? -0.7 : land ? -2.0 : -1.55) * (1 - pt), 0);
+      o.current.scale.setScalar(side ? 1 : (land ? 0.76 : 0.82) + (land ? 0.24 : 0.18) * pt);
+    }
 
     // параллакс камеры ±3°
     const rx = THREE.MathUtils.degToRad(3);
     const px = Math.sin(sceneState.px * rx) * 10;
-    const tx = 4.4 * (1 - pt) + px + pt * 1.5;
+    const tx = 4.4 * (1 - pt) + px + (side ? pt * 1.5 : 0);
     const ty = 0.9 + pt * 2.2 + sceneState.py * 0.4;
-    const tz = 8.2 + pt * 8.5 + (mode === 'assembly' ? sceneState.explode * (1 - pt) * 2.4 : 0);
+    const tz = (8.2 + pt * 8.5 + (mode === 'assembly' ? sceneState.explode * (1 - pt) * 2.4 : 0)) * (side ? 1 : 1.35);
     camera.position.x += (tx - camera.position.x) * k;
     camera.position.y += (ty - camera.position.y) * k;
     camera.position.z += (tz - camera.position.z) * k;
@@ -165,7 +170,7 @@ function Portal() {
 
 function Content({ auto, mode }: { auto: boolean; mode: Mode }) {
   const { size } = useThree();
-  const wide = size.width / size.height > 1.15;
+  const wide = size.width / size.height >= 1.5;
   const hero = useRef<THREE.Group>(null!);
   const geometry = useMemo(() => {
     const s = series.find((x) => x.code === 'T52')!;
@@ -182,7 +187,7 @@ function Content({ auto, mode }: { auto: boolean; mode: Mode }) {
   return (
     <>
       {mode === 'hero' && <Driver auto={auto} />}
-      <Rig offsetX={wide ? (mode === 'hero' ? 2.6 : 1.5) : 0} mode={mode}>
+      <Rig offsetX={wide ? (mode === 'hero' ? 2.6 : 1.5) : 0} mode={mode} side={wide}>
         <group ref={hero}>
           <TrussModel geometry={geometry} />
           {mode === 'assembly' && <Projector target={hero} />}

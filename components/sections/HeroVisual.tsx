@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Rotate3d } from 'lucide-react';
 import { LazyStage } from '@/components/three/LazyStage';
 import { buildTruss } from '@/lib/truss/build';
 import { trussToSvg } from '@/lib/truss/iso';
@@ -58,6 +57,11 @@ export function HeroVisual() {
   }, []);
 
   const ready = useReady();
+  useEffect(() => {
+    const on = () => { if (hasWebGL()) { setGl(true); setAsked(true); } };
+    window.addEventListener('mdmt:3d', on);
+    return () => window.removeEventListener('mdmt:3d', on);
+  }, []);
   const run3d = gl && !reduce && ready && (desktop || asked);
 
   return (
@@ -67,16 +71,8 @@ export function HeroVisual() {
           <LazyStage bloom={(navigator.hardwareConcurrency || 4) > 4} />
         </div>
       ) : (
-        <div className="absolute inset-x-0 bottom-[67%] top-[9%] flex flex-col px-2 md:inset-y-[18%] md:left-[34%] md:block">
+        <div className="absolute inset-x-0 top-[76px] h-[150px] flex flex-col px-2 md:inset-y-[18%] md:left-[34%] md:h-auto md:block">
           <div className="min-h-0 flex-1 md:h-full"><SvgTruss /></div>
-          {!reduce && !desktop && (
-            <button
-              onClick={() => { if (hasWebGL()) { setGl(true); setAsked(true); } }}
-              className="mono self-end flex min-h-11 md:absolute md:bottom-0 md:right-4 items-center gap-2 border border-signal/70 bg-void/70 px-4 text-[12px] uppercase tracking-[0.14em] text-signal backdrop-blur"
-            >
-              <Rotate3d className="size-4" aria-hidden /> Покрутить в 3D
-            </button>
-          )}
         </div>
       )}
     </div>

@@ -22,12 +22,12 @@ export function Header() {
       }`}
     >
       <div className="container-x flex h-16 items-center justify-between gap-6 md:h-[72px]">
-        <a href="/" className="group flex items-baseline gap-3" aria-label="МДМ-Технология — на главную">
+        <a href="/" className="hit group flex items-baseline gap-3" aria-label="МДМ-Технология — на главную">
           <span className="mono whitespace-nowrap text-[14px] font-medium tracking-[0.14em] text-white sm:text-[15px]">МДМ-ТЕХНОЛОГИЯ</span>
-          <span className="mono hidden border border-signal/60 px-1.5 py-px text-[10px] tracking-[0.14em] text-signal sm:inline">С {site.since}</span>
+          <span className="mono hidden border border-signal/60 px-1.5 py-px text-[10px] tracking-[0.14em] text-signal sm:inline whitespace-nowrap">С {site.since}</span>
         </a>
 
-        <nav aria-label="Основное меню" className="hidden items-center gap-7 lg:flex">
+        <nav aria-label="Основное меню" className="hidden items-center gap-7 xl:flex">
           {nav.map((n) => (
             <a key={n.label} href={n.href} className="link-u relative text-[14px] text-alu transition-colors hover:text-white">
               {n.label}
@@ -36,13 +36,13 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <a href={site.phoneHref} className="mono hidden text-[14px] text-white xl:block">{site.phone}</a>
-          <span className="hidden md:block"><Button href="#rfq" className="!min-h-11 !px-5">Запросить расчёт</Button></span>
+          <a href={site.phoneHref} className="mono hidden whitespace-nowrap text-[14px] text-white xl:block">{site.phone}</a>
+          <span className="hidden whitespace-nowrap md:block"><Button href="#rfq" className="!min-h-11 !px-5 whitespace-nowrap">Запросить расчёт</Button></span>
           <a href={site.phoneHref} className="grid size-11 place-items-center border border-grid text-white md:hidden" aria-label="Позвонить">
             <Phone className="size-[18px]" />
           </a>
           <button
-            className="grid size-11 place-items-center border border-grid text-white lg:hidden"
+            className="grid size-11 place-items-center border border-grid text-white xl:hidden"
             aria-label={open ? 'Закрыть меню' : 'Открыть меню'}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
@@ -53,7 +53,7 @@ export function Header() {
       </div>
 
       {open && (
-        <nav aria-label="Мобильное меню" className="container-x grid gap-1 pb-6 lg:hidden">
+        <nav aria-label="Мобильное меню" className="container-x grid gap-1 pb-6 xl:hidden">
           {nav.map((n) => (
             <a key={n.label} href={n.href} onClick={() => setOpen(false)} className="mono border-b border-grid py-4 text-[15px] uppercase tracking-[0.14em] text-white">
               {n.label}

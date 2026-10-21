@@ -137,7 +137,7 @@ export function Assembly() {
         <div className="absolute inset-0">{active && <LazyStage mode="assembly" auto={false} />}</div>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_70%_at_70%_50%,transparent,#08090b_100%)]" aria-hidden />
         <div className="pointer-events-none absolute inset-y-0 left-0 w-[46%] bg-gradient-to-r from-void via-void/80 to-transparent" aria-hidden />
-        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+        <div className="pointer-events-none absolute inset-0 hidden overflow-hidden lg:block" aria-hidden>
           {CALLOUTS.map((c, i) => (
             <div key={c.title} ref={(el) => { lab.current[i] = el; }} className="absolute left-0 top-0 opacity-0 will-change-transform">
               <div className={`absolute top-0 flex w-[220px] items-start gap-3 ${c.side === 'l' ? '-translate-x-full flex-row-reverse text-right' : ''}`}>

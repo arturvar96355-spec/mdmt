@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/Button';
 import { Marquee } from '@/components/motion/Marquee';
 import { typograph } from '@/lib/typograph';
 import { HeroVisual } from './HeroVisual';
+import { Rotate3dButton } from '@/components/ui/Rotate3dButton';
 
 export function Hero() {
   return (
@@ -15,7 +16,7 @@ export function Hero() {
       <HeroVisual />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-40 bg-gradient-to-t from-void to-transparent" aria-hidden />
 
-      <div className="container-x pointer-events-none relative z-10 flex flex-1 flex-col justify-end pb-36 pt-28 md:justify-center md:pb-28 md:pt-32">
+      <div className="container-x pointer-events-none relative z-10 flex flex-1 flex-col justify-end pb-36 pt-[calc(76px+150px+20px)] md:justify-start md:pb-28 md:pt-32 md:[@media(min-aspect-ratio:3/2)]:justify-center">
         <p className="label mb-6 flex items-center gap-3 md:mb-8">
           <span className="inline-block h-px w-10 bg-signal" /> Москва · Гольяново · с {site.since}
         </p>
@@ -26,6 +27,7 @@ export function Hero() {
         <div className="pointer-events-auto mt-9 flex flex-wrap gap-3 md:mt-11">
           <Button href="#catalog">Каталог ферм</Button>
           <Button href="#rfq" variant="ghost">Запросить расчёт</Button>
+          <Rotate3dButton />
         </div>
       </div>
 

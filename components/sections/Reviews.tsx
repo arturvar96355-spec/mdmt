@@ -19,7 +19,7 @@ export function Reviews() {
             </p>
             <p className="mt-2 text-[14px] text-mute">Все отзывы положительные</p>
           </div>
-          <a href={site.reviewsUrl} target="_blank" rel="noopener noreferrer" className="mono text-[12px] uppercase tracking-[0.14em] text-signal underline decoration-signal/40 underline-offset-4 hover:decoration-signal">Читать на Яндекс Картах →</a>
+          <a href={site.reviewsUrl} target="_blank" rel="noopener noreferrer" className="hit mono text-[12px] uppercase tracking-[0.14em] text-signal underline decoration-signal/40 underline-offset-4 hover:decoration-signal">Читать на Яндекс Картах →</a>
         </Reveal>
         <div className="grid gap-px bg-grid sm:grid-cols-2 lg:col-span-8">
           {reviews.map((r, i) => (
