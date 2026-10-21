@@ -13,7 +13,7 @@ const COLS = [
   { k: 'Результат', v: gelendzhik.result, ph: true },
 ] as const;
 
-function Arena({ r }: { r: { curtain: React.RefObject<SVGGElement | null>; hl: React.RefObject<SVGGElement | null>; hr: React.RefObject<SVGGElement | null>; tags: React.RefObject<SVGGElement | null> } }) {
+function Arena({ done = false, r }: { done?: boolean; r: { curtain: React.RefObject<SVGGElement | null>; hl: React.RefObject<SVGGElement | null>; hr: React.RefObject<SVGGElement | null>; tags: React.RefObject<SVGGElement | null> } }) {
   return (
     <svg viewBox="0 0 1200 640" className="h-full w-full" role="img" aria-label="Схема: люк в полу сцены открывается, противопожарный занавес опускается в проём">
       <defs>
@@ -44,7 +44,7 @@ function Arena({ r }: { r: { curtain: React.RefObject<SVGGElement | null>; hl: R
 
       {/* занавес: опускается в проём */}
       <g clipPath="url(#loft)">
-        <g ref={r.curtain}>
+        <g ref={r.curtain} transform={done ? 'translate(0 390)' : undefined}>
           <rect x="440" y="-170" width="320" height="360" fill="rgb(255 106 19 / 0.10)" stroke="#ff6a13" strokeWidth="1.5" />
           <rect x="440" y="174" width="320" height="16" fill="url(#hz)" />
           {Array.from({ length: 7 }, (_, i) => <line key={i} x1={440 + (i + 1) * 40} y1="-170" x2={440 + (i + 1) * 40} y2="174" stroke="#ff6a13" opacity="0.25" />)}
@@ -52,11 +52,11 @@ function Arena({ r }: { r: { curtain: React.RefObject<SVGGElement | null>; hl: R
       </g>
 
       {/* створки люка */}
-      <g ref={r.hl}><rect x="440" y="514" width="160" height="8" fill="#ff6a13" /></g>
-      <g ref={r.hr}><rect x="600" y="514" width="160" height="8" fill="#ff6a13" /></g>
+      <g ref={r.hl} transform={done ? 'rotate(-78 440 518)' : undefined}><rect x="440" y="514" width="160" height="8" fill="#ff6a13" /></g>
+      <g ref={r.hr} transform={done ? 'rotate(78 760 518)' : undefined}><rect x="600" y="514" width="160" height="8" fill="#ff6a13" /></g>
       <g stroke="#ff6a13" strokeWidth="1" fill="none" opacity="0.5"><path d="M440 520 V600 M760 520 V600" /></g>
 
-      <g ref={r.tags} fontFamily="var(--font-jb)" fontSize="13" fill="#c9ced6" letterSpacing="1.4" opacity="0">
+      <g ref={r.tags} fontFamily="var(--font-jb)" fontSize="13" fill="#c9ced6" letterSpacing="1.4" opacity={done ? 1 : 0}>
         <g><line x1="760" y1="90" x2="760" y2="140" stroke="#ff6a13" /><text x="772" y="86">ПРОТИВОПОЖАРНЫЙ ЗАНАВЕС</text></g>
         <g><line x1="600" y1="552" x2="880" y2="552" stroke="#ff6a13" /><text x="890" y="556">ЛЮК В ПОЛУ СЦЕНЫ</text></g>
       </g>
@@ -100,7 +100,7 @@ export function GelendzhikScene() {
     return () => ctx.revert();
   }, [animate]);
 
-  const art = <Arena r={{ curtain, hl, hr, tags }} />;
+  const art = <Arena done={!animate} r={{ curtain, hl, hr, tags }} />;
 
   const columns = (
     <div className="grid gap-px border border-grid bg-grid md:grid-cols-3">

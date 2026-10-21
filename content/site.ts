@@ -28,9 +28,9 @@ export const site = {
 
 export const nav = [
   { label: 'Фермы', href: '/#catalog' },
-  { label: 'Сцены', href: '/#stages' },
-  { label: 'Проекты', href: '/#projects' },
-  { label: 'Производство', href: '/#production' },
+  { label: 'Сцены', href: '/stages/' },
+  { label: 'Проекты', href: '/projects/' },
+  { label: 'Производство', href: '/production/' },
   { label: '3D-модели', href: '/#production' },
   { label: 'Контакты', href: '/contacts/' },
 ] as const;
