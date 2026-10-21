@@ -1,0 +1,161 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-void: #08090b;
+  --color-carbon: #121418;
+  --color-carbon-2: #181b21;
+  --color-grid: #22262d;
+  --color-alu: #c9ced6;
+  --color-mute: #7d8591;
+  --color-signal: #ff6a13;
+  --color-signal-dim: #b84a0a;
+  --color-white: #f4f5f7;
+
+  --font-sans: var(--font-golos), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jb), ui-monospace, SFMono-Regular, monospace;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --breakpoint-3xl: 1920px;
+}
+
+:root {
+  color-scheme: dark;
+  --gutter: clamp(20px, 4vw, 56px);
+}
+
+html {
+  background: var(--color-void);
+  scroll-behavior: auto;
+}
+html.lenis, html.lenis body { height: auto; }
+.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+.lenis [data-lenis-prevent] { overscroll-behavior: contain; }
+
+body {
+  background: var(--color-void);
+  color: var(--color-alu);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection { background: var(--color-signal); color: #08090b; }
+
+:focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 3px;
+}
+
+h1, h2, h3, h4 { color: var(--color-white); font-weight: 700; letter-spacing: -0.02em; }
+
+.container-x {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* технические подписи */
+.mono { font-family: var(--font-mono); letter-spacing: 0.02em; }
+.label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+}
+
+/* чертёжная сетка */
+.bg-blueprint {
+  background-image:
+    linear-gradient(to right, rgb(34 38 45 / 0.55) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(34 38 45 / 0.55) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+.bg-blueprint-fine {
+  background-image:
+    linear-gradient(to right, rgb(34 38 45 / 0.35) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(34 38 45 / 0.35) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* зерно */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* hazard-полоса */
+.hazard {
+  background: repeating-linear-gradient(-45deg, var(--color-signal) 0 12px, #08090b 12px 24px);
+}
+
+/* заглушка данных клиента */
+.ph {
+  display: inline;
+  border: 1px dashed rgb(125 133 145 / 0.55);
+  color: var(--color-mute);
+  padding: 0 0.35em;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+  white-space: normal;
+}
+
+/* перекрестие в углу секции */
+.crosshair-corner::before,
+.crosshair-corner::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background:
+    linear-gradient(var(--color-mute), var(--color-mute)) center / 100% 1px no-repeat,
+    linear-gradient(var(--color-mute), var(--color-mute)) center / 1px 100% no-repeat;
+  opacity: 0.6;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body.has-cursor, body.has-cursor a, body.has-cursor button { cursor: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@keyframes drift { to { background-position: 64px 64px; } }
+.drift { animation: drift 60s linear infinite; }
+
+@keyframes ticker { to { transform: translate3d(-50%, 0, 0); } }
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+
+.link-u::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -4px;
+  height: 1px;
+  background: var(--color-signal);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-out-expo);
+}
+.link-u:hover::after { transform: scaleX(1); }
